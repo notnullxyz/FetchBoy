@@ -13,10 +13,10 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-void getLiveData(const char* city, const char* apikey)
+void getLiveData(const std::string& city, const std::string& apikey)
 {	
 	// hardcoded api url... @todo : fix this bad practice :(
-	const char* apiurl = "api.openweathermap.org/data/2.5/weather?q=";
+	const std::string& apiurl = "api.openweathermap.org/data/2.5/weather?q=";
 
 	fetchboy.setApiKey(apikey);
 	fetchboy.setCity(city);

@@ -4,7 +4,7 @@
 #include <iostream>
 #include "fetchboy.h"
 
-void getLiveData(const char* city, const char* apikey);
+void getLiveData(const std::string& city, const std::string& apikey);
 void prettyCLIPrint(const FetchBoyStruct response);
 
 #endif

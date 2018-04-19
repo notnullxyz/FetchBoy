@@ -4,11 +4,6 @@ FetchBoy::FetchBoy()
 {
 }
 
-FetchBoyStruct FetchBoy::parseResponse(void)
-{
-    std::cout << "parseResponse not implemented" << std::endl;
-}
-
 FetchBoyStruct FetchBoy::getCurrent()
 {
     CURL *curl;
@@ -45,17 +40,17 @@ FetchBoyStruct FetchBoy::getCurrent()
     return fbStruct;
 }
 
-void FetchBoy::setUrl(const char *url)
+void FetchBoy::setUrl(const std::string& url)
 {
-    strcpy(apiPath, url);
+    apiPath = url;
 }
 
-void FetchBoy::setCity(const char *city)
+void FetchBoy::setCity(const std::string& city)
 {
-    strcpy(queryCity, city);
+    queryCity = city;
 }
 
-void FetchBoy::setApiKey(const char *apikey)
+void FetchBoy::setApiKey(const std::string& apikey)
 {
-    strcpy(apiKey, apikey);
+    apiKey = apikey;
 }
