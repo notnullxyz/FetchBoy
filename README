@@ -1,13 +1,20 @@
 FetchBoy
-A Weather cli thingy.
+A Weather cli thingy to get current weather and demonstrate OpenWeatherMap API usage.
 
 <marlonv@protonmail.com>
 
 Requires installing packages:
-    libcurl4-gnutls-dev
+    curl - `libcurl4-gnutls-dev` (debian/ubuntu)
 
 Compile and Link:
-    ./build.sh
+    `./build.sh`
+
+Clean:
+    `./clean.sh`
 
 API Keys:
-    Get your OpenWeatherMap API key, and place it inside config. :)
+    Get your OpenWeatherMap API key, and use it.
+
+Usage:
+    `FetchBoy <openweather apikey> <city>`
+    FetchBoy abc123def456 George
