@@ -1,0 +1,13 @@
+FetchBoy
+A Weather cli thingy.
+
+<marlonv@protonmail.com>
+
+Requires installing packages:
+    libcurl4-gnutls-dev
+
+Compile and Link:
+    ./build.sh
+
+API Keys:
+    Get your OpenWeatherMap API key, and place it inside config. :)
