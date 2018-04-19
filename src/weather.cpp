@@ -15,12 +15,9 @@ int main(int argc, char *argv[])
 
 void getLiveData(const std::string& city, const std::string& apikey)
 {	
-	// hardcoded api url... @todo : fix this bad practice :(
-	const std::string& apiurl = "api.openweathermap.org/data/2.5/weather?q=";
-
 	fetchboy.setApiKey(apikey);
 	fetchboy.setCity(city);
-	fetchboy.setUrl(apiurl);
+	fetchboy.setUrl(APIURL);
 	FetchBoyStruct temp = fetchboy.getCurrent();
 	prettyCLIPrint(temp);
 }
@@ -28,5 +25,5 @@ void getLiveData(const std::string& city, const std::string& apikey)
 void prettyCLIPrint(const FetchBoyStruct response)
 {
 	// format and prettify
-	std::cout << std::endl << "Status: " << response.status << ", Temp: " << response.tempCelsius << std::endl;
+	std::cout << std::endl << "Status: " << response.status << ", Temp: " << response.message << std::endl;
 }

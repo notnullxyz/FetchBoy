@@ -14,8 +14,8 @@ enum status_t {
 
 struct FetchBoyStruct
 {
-    int tempCelsius;
     status_t status;
+    std::string message;
 };
 
 class FetchBoy

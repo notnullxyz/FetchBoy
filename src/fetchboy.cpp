@@ -17,6 +17,8 @@ FetchBoyStruct FetchBoy::getCurrent()
         ss << apiPath << queryCity << "&APPID=" << apiKey;
         std::string queryUrl = ss.str();
 
+        std::cout << "QUERY URL '" << queryUrl << "'" << std::endl;
+
         curl_easy_setopt(curl, CURLOPT_URL, queryUrl);
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L); // can follow redirect
 
@@ -25,13 +27,13 @@ FetchBoyStruct FetchBoy::getCurrent()
         if (result != CURLE_OK)
         {
             fprintf(stderr, "FetchBoy didn't make it back :(\t %s\n", curl_easy_strerror(result));
-            fbStruct.tempCelsius = 0;
             fbStruct.status = FAIL;
+            fbStruct.message = curl_easy_strerror(result);
         }
         else
         {
-            fbStruct.tempCelsius = 999;
             fbStruct.status = OK;
+            fbStruct.message = result;
         }
 
         curl_easy_cleanup(curl);
