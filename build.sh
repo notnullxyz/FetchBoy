@@ -16,4 +16,4 @@ echo 'compiling fetchboy.o';
 g++ -c $SRC_DIR/fetchboy.cpp -o $OBJECT_DIR/fetchboy.o
 
 echo 'linking objects to exectuable' $BINARY_NAME;
-g++ -o $BINARY_DIR/$BINARY_NAME $OBJECT_DIR/weather.o $OBJECT_DIR/fetchboy.o -lcurl
+g++ -o $BINARY_DIR/$BINARY_NAME $OBJECT_DIR/weather.o $OBJECT_DIR/fetchboy.o -lcurl -std=gnu++11
