@@ -17,8 +17,6 @@ FetchBoyStruct FetchBoy::getCurrent()
         ss << apiPath << queryCity << "&APPID=" << apiKey;
         std::string queryUrl = ss.str();
 
-        std::cout << "QUERY URL '" << queryUrl << "'" << std::endl;
-
         curl_easy_setopt(curl, CURLOPT_URL, queryUrl);
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L); // can follow redirect
 
