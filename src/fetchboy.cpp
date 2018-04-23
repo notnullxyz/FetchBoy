@@ -27,6 +27,7 @@ FetchBoyStruct FetchBoy::getCurrent()
         curl_easy_setopt(curl, CURLOPT_DNS_USE_GLOBAL_CACHE, false );
         curl_easy_setopt(curl, CURLOPT_DNS_CACHE_TIMEOUT, 2 );
         curl_easy_setopt(curl, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+        delete apiUrl;
 
         result = curl_easy_perform(curl); // execute request
 
