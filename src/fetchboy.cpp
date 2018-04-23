@@ -23,7 +23,6 @@ FetchBoyStruct FetchBoy::getCurrent()
 
         curl_easy_setopt(curl, CURLOPT_URL, apiUrl);
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L); // can follow redirect
-        curl_easy_setopt(curl, CURLOPT_HEADER, 1);
         curl_easy_setopt(curl, CURLOPT_HTTPGET, 1);
         curl_easy_setopt(curl, CURLOPT_DNS_USE_GLOBAL_CACHE, false );
         curl_easy_setopt(curl, CURLOPT_DNS_CACHE_TIMEOUT, 2 );
@@ -34,12 +33,12 @@ FetchBoyStruct FetchBoy::getCurrent()
         if (result != CURLE_OK)
         {
             fprintf(stderr, "FetchBoy didn't make it back :(\t %s\n", curl_easy_strerror(result));
-            fbStruct.status = FAIL;
+            fbStruct.status = FETCHBOY_FAIL;
             fbStruct.message = curl_easy_strerror(result);
         }
         else
         {
-            fbStruct.status = OK;
+            fbStruct.status = FETCHBOY_OK;
             fbStruct.message = result;
         }
 

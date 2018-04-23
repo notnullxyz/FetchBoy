@@ -8,8 +8,8 @@
 #include <cstring>
 
 enum status_t {
-    OK = 0,
-    FAIL = 1
+    FETCHBOY_OK = 0,
+    FETCHBOY_FAIL = 1
 };
 
 struct FetchBoyStruct

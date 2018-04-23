@@ -19,7 +19,7 @@ void getLiveData(const std::string& city, const std::string& apikey)
 	fetchboy.setCity(city);
 	fetchboy.setUrl(APIURL);
 	FetchBoyStruct temp = fetchboy.getCurrent();
-	prettyCLIPrint(temp);
+	//prettyCLIPrint(temp);
 }
 
 void prettyCLIPrint(const FetchBoyStruct response)
