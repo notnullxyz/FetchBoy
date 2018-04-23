@@ -18,6 +18,12 @@ struct FetchBoyStruct
     std::string message;
 };
 
+static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp);
+
+const std::string FETCHBOY_CORE_VERSION = "1.1";
+const signed long FETCHBOY_CURL_TIMEOUT = 5000L;
+const std::string FETCHBOY_USER_AGENT = "FetchBoy-agent/" + FETCHBOY_CORE_VERSION;
+
 class FetchBoy
 {
 
@@ -25,6 +31,9 @@ class FetchBoy
     std::string apiPath;
     std::string apiKey;
     std::string queryCity;
+    std::string outputBody;
+
+    //static size_t WriteCallback(void *contents, size_t size, size_t nmemb, void *userp);
 
   public:
     FetchBoy();

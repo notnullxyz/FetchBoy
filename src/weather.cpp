@@ -18,12 +18,21 @@ void getLiveData(const std::string& city, const std::string& apikey)
 	fetchboy.setApiKey(apikey);
 	fetchboy.setCity(city);
 	fetchboy.setUrl(APIURL);
-	FetchBoyStruct temp = fetchboy.getCurrent();
-	//prettyCLIPrint(temp);
+	FetchBoyStruct serverResponse = fetchboy.getCurrent();
+	prettyCLIPrint(serverResponse);
 }
 
-void prettyCLIPrint(const FetchBoyStruct response)
+void prettyCLIPrint(FetchBoyStruct &response)
 {
-	// format and prettify
-	std::cout << std::endl << "Status: " << response.status << ", Temp: " << response.message << std::endl;
+	//std::cout << "DEBUG status: " << response.status << std::endl << "DEBUG message: " << response.message << std::endl;
+	// handle error specifics here... then call out to beautify the Json
+	std::cout << makeJsonReadable(response.message) << std::endl;
+}
+
+/**
+ * Convert from JSON to whatever is considered 'readable' here.
+ * Room for some polymorph perhaps, depending on where this is compiled from/for.
+ */
+std::string makeJsonReadable(std::string &json) {
+	return json;
 }
