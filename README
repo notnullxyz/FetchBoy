@@ -18,3 +18,8 @@ API Keys:
 Usage:
     `FetchBoy <openweather apikey> <city>`
     FetchBoy abc123def456 George
+
+
+
+Documentation for JsonCPP: https://en.wikibooks.org/wiki/JsonCpp#Example
+Documentation for LibCurl: https://curl.haxx.se/docs/install.html

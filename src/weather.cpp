@@ -26,13 +26,24 @@ void prettyCLIPrint(FetchBoyStruct &response)
 {
 	//std::cout << "DEBUG status: " << response.status << std::endl << "DEBUG message: " << response.message << std::endl;
 	// handle error specifics here... then call out to beautify the Json
-	std::cout << makeJsonReadable(response.message) << std::endl;
+	weatherDataMap m = makeJsonReadable(response.message);
+	std::cout << m << std::endl;
 }
 
 /**
  * Convert from JSON to whatever is considered 'readable' here.
  * Room for some polymorph perhaps, depending on where this is compiled from/for.
  */
-std::string makeJsonReadable(std::string &json) {
-	return json;
+weatherDataMap makeJsonReadable(std::string &json) {
+	Json::Reader jsonReader;
+	Json::Value jsonObject;
+	weatherDataMap retained;
+
+	jsonReader.parse(json, jsonObject);
+
+	std::string Description = "Description-> ";
+
+	retained.insert(std::make_pair(Description, jsonObject["weather"][0]["description"].asString()));
+
+	return retained;
 }
