@@ -35,7 +35,12 @@ struct WeatherStruct {
 };
 
 const std::string APIURL = "api.openweathermap.org/data/2.5/weather?q=";
+
+/** 
+ * Constant pertaining to the tabular output
+ */
 const char SEPARATOR = ' ';
+const int16_t COL_WIDTH = 15;
 
 void getLiveData(const std::string& city, const std::string& apikey);
 void prettyCLIPrint(FetchBoyStruct &response);

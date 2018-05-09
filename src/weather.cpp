@@ -32,11 +32,11 @@ void prettyCLIPrint(FetchBoyStruct &response)
 	//std::cout << weather.locationName << std::endl;
 	//std::cout << weather.sun.sunrise << std::endl;
 
-	echoRow("Location", 20);
-	echoRow("Sunrise", 20);
+	echoRow("Location", COL_WIDTH);
+	echoRow(weather.locationName, COL_WIDTH);
 	std::cout << std::endl;
-	echoRow(weather.locationName, 20);
-	echoRow(weather.sun.sunrise, 20);
+	echoRow("Sunrise", COL_WIDTH);
+	echoRow(weather.sun.sunrise, COL_WIDTH);
 	std::cout << std::endl;
 }
 
