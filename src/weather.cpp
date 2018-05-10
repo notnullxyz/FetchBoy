@@ -19,25 +19,48 @@ void getLiveData(const std::string& city, const std::string& apikey)
 	fetchboy.setCity(city);
 	fetchboy.setUrl(APIURL);
 	FetchBoyStruct serverResponse = fetchboy.getCurrent();
-	prettyCLIPrint(serverResponse);
+	prettyCLIPrintTable(serverResponse);
 }
 
-void prettyCLIPrint(FetchBoyStruct &response)
+void prettyCLIPrintTable(FetchBoyStruct &response)
 {
-	//std::cout << "DEBUG status: " << response.status << std::endl << "DEBUG message: " << response.message << std::endl;
-	// handle error specifics here... then call out to beautify the Json
-	//weatherDataMap m = makeJsonReadable(response.message);
 	WeatherStruct weather = convertJsonToStructure(response.message);
 
-	//std::cout << weather.locationName << std::endl;
-	//std::cout << weather.sun.sunrise << std::endl;
+	echoRow("Weather for ", 12);
+	echoRow(weather.locationName, weather.locationName.length()+1);
+	std::cout << ", ";
+	echoRow(weather.conditions, COL_WIDTH);
+	std::cout << std::endl;
+	
+	echoRow("Temperature", COL_WIDTH);
+	echoRow(weather.temperature.temperature, COL_WIDTH);
+	echoRow(weather.temperature.temperatureMinimum, COL_WIDTH);
+	echoRow(weather.temperature.temperatureMaximum, COL_WIDTH);
+	std::cout << std::endl;
 
-	echoRow("Location", COL_WIDTH);
-	echoRow(weather.locationName, COL_WIDTH);
-	std::cout << std::endl;
-	echoRow("Sunrise", COL_WIDTH);
+	echoRow("Sun", COL_WIDTH);
 	echoRow(weather.sun.sunrise, COL_WIDTH);
+	echoRow(weather.sun.sunset, COL_WIDTH);
 	std::cout << std::endl;
+
+	echoRow("Pressure", COL_WIDTH);
+	echoRow(weather.baro, COL_WIDTH);
+	std::cout << std::endl;
+
+	echoRow("Humidity", COL_WIDTH);
+	echoRow(weather.humidity, COL_WIDTH);
+	std::cout << std::endl;
+
+	echoRow("Visibility", COL_WIDTH);
+	echoRow(weather.visibility, COL_WIDTH);
+	std::cout << std::endl;
+
+	echoRow("Wind", COL_WIDTH);
+	echoRow(weather.wind.speed, COL_WIDTH);
+	std::cout << "from";
+	echoRow(weather.wind.degrees, COL_WIDTH);
+	std::cout << std::endl;
+
 }
 
 /**
@@ -55,7 +78,6 @@ WeatherStruct convertJsonToStructure(std::string &json) {
 	Json::Reader jsonReader;
 	Json::Value jsonObject;
 	WeatherStruct data;
-
 	jsonReader.parse(json, jsonObject);
 
 	// pack the known response from weather service into my own struct
@@ -63,12 +85,12 @@ WeatherStruct convertJsonToStructure(std::string &json) {
 	data.conditions = 	jsonObject["weather"][0]["description"].asString();
 	data.baro = 		jsonObject["main"]["pressure"].asInt();
 	data.humidity = 	jsonObject["main"]["humidity"].asInt();
-	data.visibility = 	jsonObject["visibility"].asInt();
+	data.visibility = 	jsonObject["visibility"].asString();
 	data.wind.degrees = jsonObject["wind"]["degrees"].asInt();
 	data.wind.speed =	jsonObject["wind"]["speed"].asFloat();
 	data.sun.sunrise = 	jsonObject["sys"]["sunrise"].asString();
 	data.sun.sunset = 	jsonObject["sys"]["sunset"].asString();
-	data.temperature.temperature = 			jsonObject["main"]["temperature"].asFloat();
+	data.temperature.temperature = 			jsonObject["main"]["temp"].asFloat();
 	data.temperature.temperatureMaximum = 	jsonObject["main"]["temp_max"].asFloat();
 	data.temperature.temperatureMinimum = 	jsonObject["main"]["temp_min"].asFloat();
 

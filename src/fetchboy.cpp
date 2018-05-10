@@ -4,7 +4,7 @@ FetchBoy::FetchBoy()
 {
 }
 
-FetchBoyStruct FetchBoy::getCurrent()
+FetchBoyStruct FetchBoy::getCurrent(bool imperial = false)
 {
     CURL *curl;
     CURLcode result;
@@ -16,11 +16,12 @@ FetchBoyStruct FetchBoy::getCurrent()
     {
         // build a oss of the whole api url, then convert it to a char* for curl.
         // curlopt url expects a char*... this is not an ideal fix.
-        ss << apiPath << queryCity << "&APPID=" << apiKey;
+        ss << apiPath << queryCity << "&units=metric" << "&APPID=" << apiKey;
         std::string queryUrl = ss.str();
         char* apiUrl = new char [queryUrl.length()+1];
         std::strcpy(apiUrl, queryUrl.c_str());
-
+        // &units=metric (or imperial)
+        
         curl_easy_setopt(curl, CURLOPT_URL, apiUrl);
 
         curl_easy_setopt(curl, CURLOPT_TIMEOUT_MS, FETCHBOY_CURL_TIMEOUT);

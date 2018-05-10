@@ -28,7 +28,7 @@ struct WeatherStruct {
     std::string conditions;
     int16_t baro;
     int16_t humidity;
-    int16_t visibility;
+    std::string visibility;
     Wind wind;
     Temperature temperature;
     Sun sun;
@@ -44,6 +44,7 @@ const int16_t COL_WIDTH = 15;
 
 void getLiveData(const std::string& city, const std::string& apikey);
 void prettyCLIPrint(FetchBoyStruct &response);
+void prettyCLIPrintTable(FetchBoyStruct &response);
 WeatherStruct convertJsonToStructure(std::string &json);
 template<typename T> void echoRow(T t, const int & width);
 
