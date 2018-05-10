@@ -21,7 +21,7 @@ FetchBoyStruct FetchBoy::getCurrent(const std::string& unit)
         char* apiUrl = new char [queryUrl.length()+1];
         std::strcpy(apiUrl, queryUrl.c_str());
         
-        curl_easy_setopt(curl, CURLOPT_URL, "");
+        curl_easy_setopt(curl, CURLOPT_URL, apiUrl);
         curl_easy_setopt(curl, CURLOPT_TIMEOUT_MS, FETCHBOY_CURL_TIMEOUT);
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L); // can follow redirect
         curl_easy_setopt(curl, CURLOPT_HTTPGET, 1);

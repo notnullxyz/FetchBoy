@@ -4,7 +4,7 @@ FetchBoy fetchboy;
 
 int main(int argc, char *argv[])
 {
-	if (argc != 3) {
+	if (argc < 3) {
 		std::cout << "Usage: FetchBoy <openweather apikey> <city> [unit:imperial|metric]" << std::endl;
 		return 1;
 	}
