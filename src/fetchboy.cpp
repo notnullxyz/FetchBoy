@@ -4,7 +4,7 @@ FetchBoy::FetchBoy()
 {
 }
 
-FetchBoyStruct FetchBoy::getCurrent(bool imperial = false)
+FetchBoyStruct FetchBoy::getCurrent(const std::string& unit)
 {
     CURL *curl;
     CURLcode result;
@@ -16,14 +16,12 @@ FetchBoyStruct FetchBoy::getCurrent(bool imperial = false)
     {
         // build a oss of the whole api url, then convert it to a char* for curl.
         // curlopt url expects a char*... this is not an ideal fix.
-        ss << apiPath << queryCity << "&units=metric" << "&APPID=" << apiKey;
+        ss << apiPath << queryCity << "&units=" << unit << "&APPID=" << apiKey;
         std::string queryUrl = ss.str();
         char* apiUrl = new char [queryUrl.length()+1];
         std::strcpy(apiUrl, queryUrl.c_str());
-        // &units=metric (or imperial)
         
-        curl_easy_setopt(curl, CURLOPT_URL, apiUrl);
-
+        curl_easy_setopt(curl, CURLOPT_URL, "");
         curl_easy_setopt(curl, CURLOPT_TIMEOUT_MS, FETCHBOY_CURL_TIMEOUT);
         curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L); // can follow redirect
         curl_easy_setopt(curl, CURLOPT_HTTPGET, 1);
@@ -35,15 +33,16 @@ FetchBoyStruct FetchBoy::getCurrent(bool imperial = false)
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &outputBody);
 
-        result = curl_easy_perform(curl); // execute request
+        result = curl_easy_perform(curl);
         delete[] apiUrl;
+
+        curl_easy_cleanup(curl);
 
         if (result != CURLE_OK)
         {
-            // @todo further divine the error, so I can respond with something very specific in status code.
-            fprintf(stderr, "FetchBoy didn't make it back :(\t %s\n", curl_easy_strerror(result));
-            fbStruct.status = FETCHBOY_FAIL;
-            fbStruct.message = curl_easy_strerror(result);
+            std::string exception = "FetchBoyCurlException, FetchBoy did not make it back :( - ";
+            exception.append(curl_easy_strerror(result));
+            throw exception;
         }
         else
         {
@@ -51,7 +50,7 @@ FetchBoyStruct FetchBoy::getCurrent(bool imperial = false)
             fbStruct.message = outputBody;
         }
 
-        curl_easy_cleanup(curl);
+        
     }
 
     return fbStruct;

@@ -5,20 +5,34 @@ FetchBoy fetchboy;
 int main(int argc, char *argv[])
 {
 	if (argc != 3) {
-		std::cout << "Usage: FetchBoy <openweather apikey> <city>" << std::endl;
+		std::cout << "Usage: FetchBoy <openweather apikey> <city> [unit:imperial|metric]" << std::endl;
 		return 1;
 	}
 
-	getLiveData(argv[2], argv[1]);
-	return 0;
+	std::string unit = "metric";
+
+	if (argv[2] == "imperial") {
+		unit = "imperial";
+	}
+
+	int liveResult = getLiveData(argv[2], argv[1], unit);
+	return EXIT_SUCCESS || liveResult;
 }
 
-void getLiveData(const std::string& city, const std::string& apikey)
+int getLiveData(const std::string& city, const std::string& apikey, const std::string& unit)
 {	
+	FetchBoyStruct serverResponse;
 	fetchboy.setApiKey(apikey);
 	fetchboy.setCity(city);
 	fetchboy.setUrl(APIURL);
-	FetchBoyStruct serverResponse = fetchboy.getCurrent();
+	try {
+		serverResponse = fetchboy.getCurrent(unit);
+	} catch(std::string msg) {
+		std::cout << "FetchBoyCurlException caught: ";
+		std::cout << msg << std::endl;
+		return EXIT_FAILURE;
+	}
+
 	prettyCLIPrintTable(serverResponse);
 }
 
@@ -57,7 +71,7 @@ void prettyCLIPrintTable(FetchBoyStruct &response)
 
 	echoRow("Wind", COL_WIDTH);
 	echoRow(weather.wind.speed, COL_WIDTH);
-	std::cout << "from";
+	std::cout << "from ";
 	echoRow(weather.wind.degrees, COL_WIDTH);
 	std::cout << std::endl;
 
@@ -86,7 +100,7 @@ WeatherStruct convertJsonToStructure(std::string &json) {
 	data.baro = 		jsonObject["main"]["pressure"].asInt();
 	data.humidity = 	jsonObject["main"]["humidity"].asInt();
 	data.visibility = 	jsonObject["visibility"].asString();
-	data.wind.degrees = jsonObject["wind"]["degrees"].asInt();
+	data.wind.degrees = jsonObject["wind"]["deg"].asInt();
 	data.wind.speed =	jsonObject["wind"]["speed"].asFloat();
 	data.sun.sunrise = 	jsonObject["sys"]["sunrise"].asString();
 	data.sun.sunset = 	jsonObject["sys"]["sunset"].asString();

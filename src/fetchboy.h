@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include <cstring>
+#include <exception>
 
 enum status_t {
     FETCHBOY_OK = 0,
@@ -53,7 +54,7 @@ class FetchBoy
      */
     void setApiKey(const std::string& apikey);
     
-    FetchBoyStruct getCurrent();
+    FetchBoyStruct getCurrent(const std::string& unit);
 
 };
 

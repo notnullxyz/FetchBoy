@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <cstdlib>
 #include "fetchboy.h"
 
 #include <jsoncpp/json/json.h>
@@ -42,7 +43,7 @@ const std::string APIURL = "api.openweathermap.org/data/2.5/weather?q=";
 const char SEPARATOR = ' ';
 const int16_t COL_WIDTH = 15;
 
-void getLiveData(const std::string& city, const std::string& apikey);
+int getLiveData(const std::string& city, const std::string& apikey, const std::string& unit);
 void prettyCLIPrint(FetchBoyStruct &response);
 void prettyCLIPrintTable(FetchBoyStruct &response);
 WeatherStruct convertJsonToStructure(std::string &json);
